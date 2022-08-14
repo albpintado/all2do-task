@@ -1,6 +1,6 @@
 package com.all2do.task;
 
-public class DeleteTaskDto {
+public class IdTaskDto {
     private Long id;
 
     public Long getId() {

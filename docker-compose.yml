@@ -2,7 +2,7 @@ version: '3.8'
 services:
   db:
     image: mysql:latest
-    restart: always
+    restart: 'no'
     environment:
       MYSQL_DATABASE: 'all2do_dev'
       MYSQL_PASSWORD: 'password'

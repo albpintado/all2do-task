@@ -19,6 +19,9 @@ public class Task {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @Column(name = "IS_COMPLETED", columnDefinition = "boolean default false")
+    private boolean isCompleted;
+
     public Long getId() {
         return id;
     }
@@ -41,5 +44,13 @@ public class Task {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }

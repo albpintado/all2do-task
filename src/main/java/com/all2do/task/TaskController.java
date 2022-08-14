@@ -25,8 +25,14 @@ public class TaskController {
     }
 
     @DeleteMapping(path="delete")
-    public ResponseEntity<String> deleteTask(@RequestBody DeleteTaskDto deleteTaskDto) {
-        taskService.delete(deleteTaskDto);
+    public ResponseEntity<String> deleteTask(@RequestBody IdTaskDto idTaskDto) {
+        taskService.delete(idTaskDto);
         return new ResponseEntity<>("Deleted", HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(path="update")
+    public ResponseEntity<String> updateStatus(@RequestBody IdTaskDto idTaskDto) {
+        taskService.updateStatus(idTaskDto);
+        return new ResponseEntity<>("Updated", HttpStatus.OK);
     }
 }
