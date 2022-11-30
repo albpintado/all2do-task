@@ -25,24 +25,18 @@ public class TaskController {
     }
 
     @GetMapping(path = "get")
-    public ResponseEntity<Map<String, Object>> getTasksInPage(@RequestParam(required = false) String search,
+    public ResponseEntity<Response<Task>> getTasksInPage(@RequestParam(required = false) String search,
                                                          @RequestParam(defaultValue = "0") int page) {
-        Page<Task> tasksPage;
+        Response<Task> response;
 
         try {
             if (search == null) {
-                tasksPage = taskService.getPage(page);
+                response = taskService.getPage(page);
             }
 
             else {
-                tasksPage = taskService.getPage(page, search);
+                response = taskService.getPage(page, search);
             }
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("tasks", tasksPage.getContent());
-            response.put("currentPage", tasksPage.getNumber());
-            response.put("totalPages", tasksPage.getTotalPages());
-            response.put("totalTasks", tasksPage.getTotalElements());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {

@@ -7,7 +7,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TaskService {
@@ -18,16 +20,20 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Page<Task> getPage(int currentPage) {
+    public Response<Task> getPage(int currentPage) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         PageRequest page = PageRequest.of(currentPage, 10, sort);
-        return taskRepository.findAll(page);
+        Page<Task> tasksPage = taskRepository.findAll(page);
+
+        return new Response<>(tasksPage.getNumber(), tasksPage.getTotalPages(), tasksPage.getTotalElements(), tasksPage.getContent());
     }
 
-    public Page<Task> getPage(int currentPage, String search) {
+    public Response<Task> getPage(int currentPage, String search) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         PageRequest page = PageRequest.of(currentPage, 10, sort);
-        return taskRepository.findByContentContaining(search, page);
+        Page<Task> tasksPage = taskRepository.findByContentContaining(search, page);
+
+        return new Response<>(tasksPage.getNumber(), tasksPage.getTotalPages(), tasksPage.getTotalElements(), tasksPage.getContent());
     }
 
     public Task create(CreateTaskDto createTaskDto) {
